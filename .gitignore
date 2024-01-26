@@ -39,3 +39,23 @@ testem.log
 Thumbs.db
 
 .nx/cache
+.nhost
+
+.secrets
+
+CODEOWNERS
+
+# ENV
+.env
+.env.*
+.env.mac.*
+.env.local
+!.env.*.gpg
+.envrc
+*.env
+.aider*
+
+
+docker/wordpress/data
+docker/wordpress/wordpress
+docker/wordpress/plugins

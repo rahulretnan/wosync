@@ -22,9 +22,19 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
-      "rules": {}
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript",
+        "plugin:@tanstack/eslint-plugin-query/recommended"
+      ],
+      "rules": {
+        "@tanstack/query/exhaustive-deps": "error",
+        "@tanstack/query/no-rest-destructuring": "warn",
+        "@tanstack/query/stable-query-client": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
