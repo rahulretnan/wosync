@@ -11,5 +11,8 @@ module.exports = {
       config: join(__dirname, 'tailwind.config.js'),
     },
     autoprefixer: {},
+    'postcss-antd-fixes': {
+      prefixes: ['vp-antd', 'ant'],
+    },
   },
 };

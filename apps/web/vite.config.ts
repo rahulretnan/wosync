@@ -2,8 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { join } from 'path';
-import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
+import { resolve } from 'path';
 
 export default defineConfig({
   root: __dirname,
@@ -19,15 +18,18 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [react(), nxViteTsPaths(), TanStackRouterVite({
-    routesDirectory: join(__dirname, 'src/routes'),
-    generatedRouteTree: join(__dirname, 'src/routeTree.gen.ts')
-  }),],
+  plugins: [react(), nxViteTsPaths()],
 
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
   // },
+  resolve: {
+    alias: {
+      '@ui': resolve(__dirname, '../../libs/ui/src'),
+      // '@shared-frontend': resolve(__dirname, '../../libs/shared-frontend/src'),
+    },
+  },
 
   build: {
     outDir: '../../dist/apps/web',

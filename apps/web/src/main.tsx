@@ -1,13 +1,15 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { routeTree } from './routeTree.gen';
+import { routeTree } from './routeTree';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { NhostProvider } from '@nhost/react';
 import { nhost } from './lib/nhost';
 import { NhostApolloProvider } from '@nhost/react-apollo';
+import { notFoundRoute } from './routes/__404';
 
 const router = createRouter({
   routeTree,
+  notFoundRoute,
   context: {
     auth: undefined!,
   },
