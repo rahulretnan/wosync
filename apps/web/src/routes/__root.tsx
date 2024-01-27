@@ -3,6 +3,7 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { App, ConfigProvider, theme } from 'antd';
 import { useTheme } from '@ui/stores/theme.store';
+import { APP_ENV } from '../config';
 
 interface RouteContext {
   auth: HasuraAuthClient;
@@ -34,7 +35,9 @@ function Root() {
     >
       <App>
         <Outlet />
-        <TanStackRouterDevtools position={'bottom-right'} />
+        {APP_ENV === 'development' ? (
+          <TanStackRouterDevtools position={'bottom-right'} />
+        ) : null}
       </App>
     </ConfigProvider>
   );

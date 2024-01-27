@@ -1,6 +1,7 @@
 import { NhostClient } from '@nhost/react';
+import { NHOST_REGION, NHOST_SUBDOMAIN } from '../config';
 
 export const nhost = new NhostClient({
-  subdomain: import.meta.env['VITE_APP_NHOST_SUBDOMAIN'] as string,
-  region: import.meta.env['VITE_APP_NHOST_REGION'] as string,
+  subdomain: NHOST_SUBDOMAIN,
+  region: NHOST_REGION,
 });
