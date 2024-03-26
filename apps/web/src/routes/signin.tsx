@@ -1,4 +1,4 @@
-import { createRoute, useNavigate } from '@tanstack/react-router';
+import { createRoute, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { authLayoutRoute } from './_auth.layout';
 import { Flex } from 'antd';
 import { SigninFormSchema } from '@ui/validations/signin-form.schema';
@@ -14,9 +14,15 @@ export const signinRoute = createRoute({
   getParentRoute: () => authLayoutRoute,
 });
 
+const routeApi = getRouteApi('/auth-layout/signin');
+
 function SignIn() {
   const { message } = useAntd();
   const navigate = useNavigate();
+  const search: {
+    redirect: string | undefined;
+  } = routeApi.useSearch();
+
   const { isLoading: isAuthLoading } = useAuthenticationStatus();
 
   const {
@@ -37,11 +43,19 @@ function SignIn() {
     }
     if (isSuccess) {
       navigate({
-        to: '/',
+        to: search.redirect ?? '/',
         replace: true,
       });
     }
-  }, [needsEmailVerification, isSuccess, isError, error, message, navigate]);
+  }, [
+    needsEmailVerification,
+    isSuccess,
+    isError,
+    error,
+    message,
+    navigate,
+    search,
+  ]);
 
   const onSubmit = async ({
     email,

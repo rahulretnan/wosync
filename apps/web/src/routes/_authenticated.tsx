@@ -1,4 +1,9 @@
-import { createRoute, Navigate, Outlet } from '@tanstack/react-router';
+import {
+  createRoute,
+  Navigate,
+  Outlet,
+  useRouterState,
+} from '@tanstack/react-router';
 import { appLayoutRoute } from './_app.layout';
 import Loader from '@ui/components/utilities/loader';
 import { useAuthenticationStatus } from '@nhost/react';
@@ -11,11 +16,24 @@ export const authRoute = createRoute({
 
 function Auth() {
   const { isLoading, isAuthenticated } = useAuthenticationStatus();
+  const {
+    location: { href },
+  } = useRouterState();
   return (
     <Loader
       loading={isLoading}
       children={
-        isAuthenticated ? <Outlet /> : <Navigate to={'/signin'} replace />
+        isAuthenticated ? (
+          <Outlet />
+        ) : (
+          <Navigate
+            to={'/signin'}
+            search={{
+              redirect: href,
+            }}
+            replace
+          />
+        )
       }
     />
   );

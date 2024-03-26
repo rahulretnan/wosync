@@ -1,44 +1,26 @@
-import { Outlet, rootRouteWithContext } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
-import { App, ConfigProvider, theme } from 'antd';
-import { useTheme } from '@ui/stores/theme.store';
 import { APP_ENV } from '../config';
+import PageNotFound from './__404';
+import ThemeProvider from '@ui/components/theme-provider';
 
 interface RouteContext {
   auth: HasuraAuthClient;
 }
 
-export const rootRoute = rootRouteWithContext<RouteContext>()({
+export const rootRoute = createRootRouteWithContext<RouteContext>()({
   component: Root,
+  notFoundComponent: PageNotFound,
 });
 
-function Root() {
-  const { theme: systemTheme } = useTheme();
+export function Root() {
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#219B8E',
-        },
-        components: {
-          Layout: {
-            triggerBg: '#219B8E',
-            algorithm: true,
-          },
-        },
-        algorithm: [
-          // theme.compactAlgorithm,
-          systemTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-        ],
-      }}
-    >
-      <App>
-        <Outlet />
-        {APP_ENV === 'development' ? (
-          <TanStackRouterDevtools position={'bottom-right'} />
-        ) : null}
-      </App>
-    </ConfigProvider>
+    <ThemeProvider>
+      <Outlet />
+      {APP_ENV === 'development' ? (
+        <TanStackRouterDevtools position={'bottom-right'} />
+      ) : null}
+    </ThemeProvider>
   );
 }

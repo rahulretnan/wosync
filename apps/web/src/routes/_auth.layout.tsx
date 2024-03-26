@@ -16,6 +16,7 @@ export const authLayoutRoute = createRoute({
     if (isAuthenticated && !isLoading) {
       throw redirect({
         to: '/',
+        search: location.search,
       });
     }
   },

@@ -1,5 +1,6 @@
 import { createRoute } from '@tanstack/react-router';
 import { authRoute } from './_authenticated';
+import { Card } from 'antd';
 
 export const indexRoute = createRoute({
   path: '/',
@@ -10,8 +11,8 @@ export const indexRoute = createRoute({
 function Dashboard() {
   console.log('Dashboard');
   return (
-    <div className="p-2">
+    <Card className="p-2">
       <h3>Welcome Home!</h3>
-    </div>
+    </Card>
   );
 }

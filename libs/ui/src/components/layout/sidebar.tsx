@@ -1,27 +1,43 @@
 import React, { FC } from 'react';
-import { Layout, theme, Typography } from 'antd';
+import { Layout, Menu, theme, Typography } from 'antd';
+import type { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
+import { useRouterState } from '@tanstack/react-router';
 
 const { Sider } = Layout;
 
 type SidebarProps = {
-  menu: any;
+  menu: ItemType<MenuItemType>[];
 };
-const Sidebar: FC<SidebarProps> = () => {
-  const { token } = theme.useToken();
+const Sidebar: FC<SidebarProps> = ({ menu }) => {
+  const {
+    token: { colorBgContainer, colorPrimary },
+  } = theme.useToken();
+  const {
+    location: { pathname },
+  } = useRouterState();
   return (
     <Sider
       collapsible
       reverseArrow
-      style={{ background: token.colorBgContainer }}
+      style={{ background: colorBgContainer }}
+      breakpoint="lg"
     >
-      <Typography.Text
-        className="flex h-16 w-full min-w-20 items-center justify-center text-xl font-bold"
-        style={{
-          color: token.colorPrimary,
-        }}
-      >
-        WoSync
-      </Typography.Text>
+      <div className="h-16 flex justify-center items-center">
+        <Typography.Text
+          className="text-xl font-bold"
+          style={{
+            color: colorPrimary,
+          }}
+        >
+          WoSync
+        </Typography.Text>
+      </div>
+      <Menu
+        mode="inline"
+        style={{ background: colorBgContainer }}
+        defaultSelectedKeys={[pathname]}
+        items={menu}
+      />
     </Sider>
   );
 };

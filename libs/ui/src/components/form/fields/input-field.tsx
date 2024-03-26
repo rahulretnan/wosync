@@ -1,7 +1,6 @@
 import { Form, FormItemProps, Input, InputProps, InputRef } from 'antd';
 import { ReactNode, Ref } from 'react';
 import { Controller, Path, useFormContext } from 'react-hook-form';
-import clsx from 'clsx';
 
 export type InputFieldProps<RecordType extends object> = InputProps & {
   name: Path<RecordType>;
@@ -11,6 +10,7 @@ export type InputFieldProps<RecordType extends object> = InputProps & {
   ref?: Ref<InputRef>;
   required?: boolean;
   skeleton?: boolean;
+  tooltip?: FormItemProps['tooltip'];
 };
 
 const FormItem = Form.Item;
@@ -23,12 +23,10 @@ export const InputField = <RecordType extends object>({
   ref,
   required,
   skeleton = false,
+  tooltip,
   ...props
 }: InputFieldProps<RecordType>) => {
   const { control } = useFormContext<RecordType>();
-  const classes = clsx(props.className, {
-    'skeleton rounded-md': skeleton,
-  });
   return (
     <Controller
       name={name}
@@ -45,7 +43,6 @@ export const InputField = <RecordType extends object>({
           >
             <Input
               {...props}
-              className={classes}
               value={value}
               onChange={onChange}
               onBlur={onBlur}
