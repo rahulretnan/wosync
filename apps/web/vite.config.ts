@@ -27,7 +27,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@ui': resolve(__dirname, '../../libs/ui/src'),
-      // '@shared-frontend': resolve(__dirname, '../../libs/shared-frontend/src'),
     },
   },
 

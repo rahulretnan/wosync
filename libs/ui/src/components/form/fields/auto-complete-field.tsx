@@ -3,13 +3,13 @@ import { ReactNode } from 'react';
 import { Controller, Path, useFormContext } from 'react-hook-form';
 
 export type AutoCompleteFieldProps<RecordType extends object> =
-  & AutoCompleteProps & {
-  name: Path<RecordType>;
-  label: ReactNode;
-  customHelp?: string;
-  formItemProps?: FormItemProps;
-  required?: boolean;
-}
+  AutoCompleteProps & {
+    name: Path<RecordType>;
+    label: ReactNode;
+    customHelp?: string;
+    formItemProps?: FormItemProps;
+    required?: boolean;
+  };
 
 const FormItem = Form.Item;
 
@@ -20,7 +20,7 @@ export function AutoCompleteField<RecordType extends object>({
   formItemProps,
   required,
   ...props
-}: AutoCompleteFieldProps<RecordType>)  {
+}: AutoCompleteFieldProps<RecordType>) {
   const { control } = useFormContext<RecordType>();
 
   return (
@@ -49,4 +49,4 @@ export function AutoCompleteField<RecordType extends object>({
       control={control}
     />
   );
-};
+}
