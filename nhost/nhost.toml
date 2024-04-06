@@ -63,7 +63,6 @@ expiresIn = 900
 [auth.session.refreshToken]
 expiresIn = 43200
 
-
 [auth.method]
 [auth.method.anonymous]
 enabled = false
