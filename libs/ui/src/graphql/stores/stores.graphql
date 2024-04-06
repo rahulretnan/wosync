@@ -1,0 +1,15 @@
+query stores {
+  stores {
+    id
+    name
+    website_url
+    created_at
+    updated_at
+  }
+}
+
+mutation createStore($object: stores_insert_input = {}) {
+  insertStore(object: $object) {
+    id
+  }
+}

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom/client';
 import { routeTree } from './routeTree';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { NhostProvider } from '@nhost/react';
-import { nhost } from './lib/nhost';
+import { cache, nhost } from '@ui/lib/nhost';
 import { NhostApolloProvider } from '@nhost/react-apollo';
 import { DevSupport } from '@react-buddy/ide-toolbox';
 import { ComponentPreviews, useInitial } from './dev';
@@ -28,7 +28,7 @@ const root = ReactDOM.createRoot(
 export function App() {
   return (
     <NhostProvider nhost={nhost}>
-      <NhostApolloProvider nhost={nhost} connectToDevTools>
+      <NhostApolloProvider nhost={nhost} connectToDevTools cache={cache}>
         <RouterProvider
           router={router}
           context={{

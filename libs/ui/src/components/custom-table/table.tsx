@@ -46,7 +46,6 @@ function Table<RecordType extends object>({
           : undefined
       }
       columns={columns}
-      className="hidden xl:block"
       size={props.size ?? 'small'}
       pagination={{
         position: ['bottomCenter'],
@@ -73,7 +72,7 @@ function Table<RecordType extends object>({
         emptyText: customEmpty || (
           <div
             className={`${
-              showNormalHeight ? 'h-96' : 'h-full'
+              showNormalHeight ? 'h-96' : 'h-[calc(100vh-340px)]'
             } grid place-content-center ${
               loading ? 'opacity-0' : 'opacity-100'
             }`}

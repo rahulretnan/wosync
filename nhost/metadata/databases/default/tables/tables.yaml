@@ -1,3 +1,4 @@
+- "!include activity_logs.yaml"
 - "!include auth_provider_requests.yaml"
 - "!include auth_providers.yaml"
 - "!include auth_refresh_token_types.yaml"
@@ -7,6 +8,7 @@
 - "!include auth_user_roles.yaml"
 - "!include auth_user_security_keys.yaml"
 - "!include auth_users.yaml"
+- "!include public_integrations.yaml"
 - "!include public_stores.yaml"
 - "!include storage_buckets.yaml"
 - "!include storage_files.yaml"

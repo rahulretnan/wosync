@@ -18,25 +18,25 @@ const config: CodegenConfig = {
   ],
 
   generates: {
-    // 'libs/shared-backend/src/sdk/base-types.ts': {
-    //   documents: 'libs/shared-backend/src/sdk/graphql/**/*.graphql',
-    //   plugins: ['typescript'],
-    //   config: {
-    //     documentMode: 'documentNode',
-    //   },
-    // },
-    // 'libs/shared-backend/src/sdk': {
-    //   documents: 'libs/shared-backend/src/sdk/graphql/**/*.graphql',
-    //   preset: 'near-operation-file',
-    //   presetConfig: {
-    //     extension: '.sdk.ts',
-    //     baseTypesPath: 'base-types.ts',
-    //   },
-    //   plugins: ['typescript-operations', 'typescript-graphql-request'],
-    //   config: {
-    //     documentMode: 'documentNode',
-    //   },
-    // },
+    'libs/backend/src/graphql/base-types.ts': {
+      documents: 'libs/backend/src/graphql/**/*.graphql',
+      plugins: ['typescript'],
+      config: {
+        documentMode: 'documentNode',
+      },
+    },
+    'libs/backend/src/graphql': {
+      documents: 'libs/backend/src/graphql/**/*.graphql',
+      preset: 'near-operation-file',
+      presetConfig: {
+        extension: '.sdk.ts',
+        baseTypesPath: 'base-types.ts',
+      },
+      plugins: ['typescript-operations', 'typescript-graphql-request'],
+      config: {
+        documentMode: 'documentNode',
+      },
+    },
 
     // Shared frontend SDK
     'libs/ui/src/generated/base-types.ts': {

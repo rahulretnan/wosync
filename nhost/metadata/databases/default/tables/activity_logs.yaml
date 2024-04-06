@@ -1,0 +1,19 @@
+table:
+  name: logs
+  schema: activity
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    insert: insertActivityLogs
+    insert_one: insertActivityLog
+    select: activityLogs
+    select_aggregate: activityLogAggregate
+    select_by_pk: activitylog
+object_relationships:
+  - name: store
+    using:
+      foreign_key_constraint_on: store_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by

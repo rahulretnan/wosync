@@ -1,0 +1,12 @@
+query checkWebsiteExist($url: String = "%%") {
+  stores(where: {website_url: {_ilike: $url}}) {
+    id
+    website_url
+  }
+}
+
+mutation updateStore($id: uuid!, $_set: stores_set_input = {}) {
+  updateStore(pk_columns: {id: $id}, _set: $_set) {
+    id
+  }
+}

@@ -21,6 +21,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@backend/*": [
+        "libs/backend/src/*"
+      ],
       "@shared/*": [
         "libs/shared/src/*"
       ],

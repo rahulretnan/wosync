@@ -1,12 +1,18 @@
 import { createRoute, Link } from '@tanstack/react-router';
 import { authRoute } from '../_authenticated';
 import Table from '@ui/components/custom-table/table';
-import { Button } from 'antd';
-import { faker } from '@faker-js/faker';
+import { Button, TableProps, Tooltip, Typography } from 'antd';
+import { Stores, useStoresQuery } from '@ui/graphql/stores';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { DATE_TIME_FORMAT } from '@shared/constants/date/date-format';
+import { LinkOutlined } from '@ant-design/icons';
+
+dayjs.extend(relativeTime);
 
 export const storesRoute = createRoute({
   path: '/stores',
-  component: Stores,
+  component: StoresList,
   getParentRoute: () => authRoute,
 });
 
@@ -18,40 +24,52 @@ const AddStoreButton = () => {
   );
 };
 
-function Stores() {
+const columns: TableProps<Stores>['columns'] = [
+  {
+    title: 'Store Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Website',
+    dataIndex: 'website_url',
+    key: 'website_url',
+    render: (value) => (
+      <Link
+        to={value}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex gap-1 items-center"
+      >
+        <LinkOutlined /> {value}
+      </Link>
+    ),
+  },
+  {
+    title: 'Created at',
+    dataIndex: 'created_at',
+    key: 'created_at',
+    responsive: ['md'],
+    className: 'cursor-pointer',
+    render: (value) => (
+      <Tooltip title={dayjs(value).format(DATE_TIME_FORMAT)}>
+        <Typography.Text>{dayjs(value).fromNow()}</Typography.Text>
+      </Tooltip>
+    ),
+  },
+];
+
+function StoresList() {
+  const { data, loading } = useStoresQuery({
+    fetchPolicy: 'network-only',
+  });
   return (
     <div className="h-full w-full p-5">
       <Table
-        dataSource={Array.from({ length: 100 }, (_, i) => ({
-          key: faker.string.uuid(),
-          name: faker.person.fullName(),
-          age: faker.number.int({
-            min: 18,
-            max: 80,
-          }),
-          address: faker.location.streetAddress(),
-        }))}
-        columns={[
-          {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text: string) => <a>{text}</a>,
-            filterSearch: true,
-          },
-          {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-            responsive: ['sm'],
-          },
-          {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-            responsive: ['lg'],
-          },
-        ]}
+        dataSource={data?.stores ?? []}
+        columns={columns}
+        loading={loading}
+        rowKey={(record) => record.id}
         tableHeaderProps={{
           searchProps: {
             placeholder: 'Search by name',
@@ -60,6 +78,7 @@ function Stores() {
           title: 'Stores',
           extra: <AddStoreButton />,
         }}
+        emptyText="No Stores Available"
       />
     </div>
   );

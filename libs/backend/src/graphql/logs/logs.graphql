@@ -1,0 +1,5 @@
+mutation addActivityLog($object: activity_logs_insert_input = {}) {
+  insertActivityLog(object: $object) {
+    id
+  }
+}

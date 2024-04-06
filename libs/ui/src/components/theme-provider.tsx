@@ -12,11 +12,11 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#219B8E',
+          colorPrimary: '#e50851',
         },
         components: {
           Layout: {
-            triggerBg: '#219B8E',
+            triggerBg: '#e50851',
             algorithm: true,
           },
         },

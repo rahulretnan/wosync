@@ -17,7 +17,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   return (
     <div className="p-2">
       <Typography.Title level={5}>{title}</Typography.Title>
-      <Flex align="center" justify="space-between">
+      <Flex align="center" justify="space-between" wrap="wrap" gap={5}>
         {showSearch ? (
           <Select {...searchProps} showSearch style={{ width: 300 }} />
         ) : null}

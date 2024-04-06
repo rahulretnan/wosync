@@ -63,6 +63,7 @@ expiresIn = 900
 [auth.session.refreshToken]
 expiresIn = 43200
 
+
 [auth.method]
 [auth.method.anonymous]
 enabled = false
@@ -140,7 +141,10 @@ version = '14.6-20231218-1'
 [provider]
 
 [storage]
-version = '0.5.1'
+version = '0.4.0'
+
+[storage.antivirus]
+server = 'tcp://run-clamav:3310'
 
 [observability]
 [observability.grafana]

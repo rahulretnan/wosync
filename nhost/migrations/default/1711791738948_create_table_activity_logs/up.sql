@@ -1,0 +1,2 @@
+CREATE TABLE "activity"."logs" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "created_at" timestamptz NOT NULL DEFAULT now(), "event" text NOT NULL, "created_by" uuid NOT NULL, "metadata" jsonb NOT NULL DEFAULT jsonb_build_object(), PRIMARY KEY ("id") , FOREIGN KEY ("created_by") REFERENCES "auth"."users"("id") ON UPDATE cascade ON DELETE cascade);COMMENT ON TABLE "activity"."logs" IS E'List of activity done by users';
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

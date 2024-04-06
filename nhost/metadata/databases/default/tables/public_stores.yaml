@@ -1,7 +1,85 @@
 table:
   name: stores
   schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    delete: deleteStores
+    delete_by_pk: deleteStore
+    insert: insertStores
+    insert_one: insertStore
+    select_aggregate: storeAggregate
+    select_by_pk: store
+    update: updateStores
+    update_by_pk: updateStore
 object_relationships:
   - name: user
     using:
       foreign_key_constraint_on: user_id
+array_relationships:
+  - name: intergrations
+    using:
+      foreign_key_constraint_on:
+        column: store_id
+        table:
+          name: integrations
+          schema: public
+  - name: logs
+    using:
+      foreign_key_constraint_on:
+        column: store_id
+        table:
+          name: logs
+          schema: activity
+insert_permissions:
+  - role: store_owner
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - name
+        - user_id
+        - website_url
+      validate_input:
+        definition:
+          forward_client_headers: true
+          headers: []
+          timeout: 10
+          url: '{{NHOST_FUNCTIONS_URL}}/validations/create-store-input'
+        type: http
+    comment: ""
+select_permissions:
+  - role: store_owner
+    permission:
+      columns:
+        - name
+        - website_url
+        - created_at
+        - updated_at
+        - id
+        - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+    comment: ""
+event_triggers:
+  - name: store_events
+    definition:
+      delete:
+        columns: '*'
+      enable_manual: false
+      insert:
+        columns: '*'
+      update:
+        columns:
+          - user_id
+          - name
+          - website_url
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: '{{NHOST_FUNCTIONS_URL}}/logs/store-event'

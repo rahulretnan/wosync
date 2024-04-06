@@ -1,7 +1,10 @@
 import { createRoute } from '@tanstack/react-router';
 import { authRoute } from '../_authenticated';
-import useAntd from '@ui/hooks/use-antd';
-import { useBlocker } from '@ui/hooks/useBlocker';
+import { Card, Steps } from 'antd';
+import React, { useState } from 'react';
+import { ProductOutlined, ShopOutlined } from '@ant-design/icons';
+import CreateStoreForm from '@ui/components/store/create-store-form';
+import ConnectIntegrationForm from '@ui/components/store/connect-integration-form';
 
 export const createStoreRoute = createRoute({
   path: '/stores/create',
@@ -10,14 +13,28 @@ export const createStoreRoute = createRoute({
 });
 
 function CreateStore() {
-  const { modal } = useAntd();
-  useBlocker(
-    async () =>
-      await modal.confirm({
-        title: 'Are you sure you want to discard the changes?',
-      }),
-    true,
+  const [current, setCurrent] = useState(1);
+  const stepItems = [
+    {
+      title: 'Create Store',
+      icon: <ShopOutlined />,
+      content: <CreateStoreForm setCurrent={setCurrent} />,
+    },
+    {
+      title: 'Connect Store Integration',
+      icon: <ProductOutlined />,
+      content: <ConnectIntegrationForm setCurrent={setCurrent} />,
+    },
+  ];
+  const items = stepItems.map((item) => ({
+    key: item.title,
+    title: item.title,
+    icon: item.icon,
+  }));
+  return (
+    <Card title="Add a new Store">
+      <Steps items={items} current={current} />
+      {stepItems[current].content}
+    </Card>
   );
-
-  return <div className="h-full w-full p-5">Hello</div>;
 }

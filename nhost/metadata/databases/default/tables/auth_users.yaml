@@ -92,6 +92,13 @@ object_relationships:
     using:
       foreign_key_constraint_on: default_role
 array_relationships:
+  - name: logs
+    using:
+      foreign_key_constraint_on:
+        column: created_by
+        table:
+          name: logs
+          schema: activity
   - name: refreshTokens
     using:
       foreign_key_constraint_on:
@@ -113,6 +120,13 @@ array_relationships:
         table:
           name: user_security_keys
           schema: auth
+  - name: stores
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: stores
+          schema: public
   - name: userProviders
     using:
       foreign_key_constraint_on:

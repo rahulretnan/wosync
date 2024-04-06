@@ -11,6 +11,9 @@ import {
   Cog8ToothIcon,
   HomeIcon,
 } from '@heroicons/react/24/outline';
+import { useAuthenticationStatus } from '@nhost/react';
+import Loader from '@ui/components/utilities/loader';
+import { useCurrentStore } from '@ui/hooks/useCurrentStore';
 
 const { Content } = Layout;
 
@@ -21,7 +24,9 @@ export const appLayoutRoute = createRoute({
 });
 
 export function AppLayout() {
+  const { currentView } = useCurrentStore();
   const navigate = useNavigate();
+  const { isLoading } = useAuthenticationStatus();
   const menu = [
     {
       key: '/',
@@ -32,12 +37,16 @@ export function AppLayout() {
           to: '/',
         }),
     },
-    {
-      key: '/stores',
-      label: 'Stores',
-      icon: <BuildingStorefrontIcon className="size-5" />,
-      onClick: () => navigate({ to: '/stores' }),
-    },
+    ...(currentView === 'ALL'
+      ? [
+          {
+            key: '/stores',
+            label: 'Stores',
+            icon: <BuildingStorefrontIcon className="size-5" />,
+            onClick: () => navigate({ to: '/stores' }),
+          },
+        ]
+      : []),
     {
       key: '/settings',
       label: 'Settings',
@@ -45,15 +54,20 @@ export function AppLayout() {
     },
   ];
   return (
-    <Layout className="h-dvh">
-      <Sidebar menu={menu} />
-      <Layout>
-        <Header />
-        <Content className="mr-3 rounded-xl p-5">
-          <Outlet />
-        </Content>
-        <Footer />
-      </Layout>
-    </Layout>
+    <Loader
+      loading={isLoading}
+      children={
+        <Layout className="h-dvh">
+          <Sidebar menu={menu} />
+          <Layout>
+            <Header />
+            <Content className="mr-3 rounded-xl p-5">
+              <Outlet />
+            </Content>
+            <Footer />
+          </Layout>
+        </Layout>
+      }
+    />
   );
 }

@@ -1,0 +1,33 @@
+table:
+  name: integrations
+  schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    delete: deleteIntegrations
+    delete_by_pk: deleteIntegration
+    insert: insertIntegrations
+    insert_one: insertIntegration
+    select_aggregate: integrationAggregate
+    select_by_pk: integration
+    update: updateIntegrations
+    update_by_pk: updateIntegration
+object_relationships:
+  - name: store
+    using:
+      foreign_key_constraint_on: store_id
+select_permissions:
+  - role: store_owner
+    permission:
+      columns:
+        - created_at
+        - id
+        - integration_type
+        - store_id
+        - updated_at
+      filter:
+        store:
+          user_id:
+            _eq: X-Hasura-User-Id
+    comment: ""
