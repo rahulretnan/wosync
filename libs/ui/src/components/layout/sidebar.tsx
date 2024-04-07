@@ -32,7 +32,8 @@ function AddStoreButton() {
 const Sidebar: FC<SidebarProps> = ({ menu }) => {
   const role = useUserDefaultRole();
   const navigate = useNavigate();
-  const { setCurrentView, setStoreId } = useCurrentStore();
+  const { setCurrentView, setStoreId, storeId, currentView } =
+    useCurrentStore();
   const {
     token: { colorBgContainer, controlHeightLG, borderRadiusLG },
   } = theme.useToken();
@@ -69,7 +70,7 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
         storeSelectionOptions ?? [],
       )
     : storeSelectionOptions;
-
+  // console.log(storeId);
   return (
     <Sider reverseArrow style={{ background: colorBgContainer }} width={250}>
       <div className="h-16 flex justify-center items-center">
@@ -84,6 +85,7 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
           {(storeSelectionOptions ?? [])?.length > 0 ? (
             <Select
               defaultValue={options?.[0]?.value}
+              value={currentView === 'ALL' ? 'ALL' : storeId}
               options={options}
               variant="borderless"
               size="large"
@@ -95,7 +97,7 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
                 </Flex>
               )}
               notFoundContent={null}
-              onChange={(value) => {
+              onSelect={(value) => {
                 if (value === 'ALL') {
                   setCurrentView('ALL');
                   setStoreId(undefined);

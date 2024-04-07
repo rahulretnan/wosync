@@ -13,7 +13,7 @@ type CreateStoreEventPayload = {
 };
 const storeEvent = async (req: Request, res: Response) => {
   const input = req.body as EventPayload<CreateStoreEventPayload>;
-  const storeId = input.event.data.new.id || input.event.data.old?.id;
+  const storeId = input.event.data.new?.id || input.event.data.old?.id;
   const createdBy = input.event.session_variables['x-hasura-user-id'];
   if (createdBy)
     await logSdk.addActivityLog({

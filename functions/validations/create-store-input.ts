@@ -23,7 +23,7 @@ const createStoreInputValidation = async (req: Request, res: Response) => {
       formatResponse(
         res,
         {
-          message: 'A store with same website already exists',
+          message: 'A store with same website already exist',
         },
         400,
       );

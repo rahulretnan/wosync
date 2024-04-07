@@ -10,3 +10,11 @@ mutation updateStore($id: uuid!, $_set: stores_set_input = {}) {
     id
   }
 }
+
+query checkStoreExist($id: uuid!) {
+  store(id: $id) {
+    id
+    name
+    user_id
+  }
+}

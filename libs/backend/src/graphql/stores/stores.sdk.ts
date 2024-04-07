@@ -22,6 +22,15 @@ export type UpdateStoreMutation = {
   updateStore?: { __typename?: 'stores'; id: any } | null;
 };
 
+export type CheckStoreExistQueryVariables = Types.Exact<{
+  id: Types.Scalars['uuid']['input'];
+}>;
+
+export type CheckStoreExistQuery = {
+  __typename?: 'query_root';
+  store?: { __typename?: 'stores'; id: any; name: string; user_id: any } | null;
+};
+
 export const CheckWebsiteExistDocument = {
   kind: 'Document',
   definitions: [
@@ -155,6 +164,53 @@ export const UpdateStoreDocument = {
     },
   ],
 } as unknown as DocumentNode;
+export const CheckStoreExistDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'checkStoreExist' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'uuid' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'store' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'id' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'user_id' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode;
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -203,6 +259,22 @@ export function getSdk(
           }),
         'updateStore',
         'mutation',
+        variables,
+      );
+    },
+    checkStoreExist(
+      variables: CheckStoreExistQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<CheckStoreExistQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CheckStoreExistQuery>(
+            CheckStoreExistDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'checkStoreExist',
+        'query',
         variables,
       );
     },

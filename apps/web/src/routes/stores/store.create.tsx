@@ -4,7 +4,7 @@ import { Card, Steps } from 'antd';
 import React, { useState } from 'react';
 import { ProductOutlined, ShopOutlined } from '@ant-design/icons';
 import CreateStoreForm from '@ui/components/store/create-store-form';
-import ConnectIntegrationForm from '@ui/components/store/connect-integration-form';
+import ConnectIntegrationButton from '@ui/components/store/connect-integration-button';
 
 export const createStoreRoute = createRoute({
   path: '/stores/create',
@@ -13,17 +13,24 @@ export const createStoreRoute = createRoute({
 });
 
 function CreateStore() {
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState<number>(0);
+  const [store, setStore] = useState<{
+    id: string;
+    website: string;
+    name: string;
+  }>();
   const stepItems = [
     {
       title: 'Create Store',
       icon: <ShopOutlined />,
-      content: <CreateStoreForm setCurrent={setCurrent} />,
+      content: <CreateStoreForm setCurrent={setCurrent} setStore={setStore} />,
     },
     {
       title: 'Connect Store Integration',
       icon: <ProductOutlined />,
-      content: <ConnectIntegrationForm setCurrent={setCurrent} />,
+      content: (
+        <ConnectIntegrationButton setCurrent={setCurrent} store={store} />
+      ),
     },
   ];
   const items = stepItems.map((item) => ({

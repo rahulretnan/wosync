@@ -13,9 +13,12 @@ import { FormGeneratorFieldProps } from '../form/types';
 
 interface CreateStoreFormProps {
   setCurrent: Dispatch<SetStateAction<number>>;
+  setStore: Dispatch<
+    SetStateAction<{ id: string; website: string; name: string } | undefined>
+  >;
 }
 
-const CreateStoreForm = ({ setCurrent }: CreateStoreFormProps) => {
+const CreateStoreForm = ({ setCurrent, setStore }: CreateStoreFormProps) => {
   const userId = useUserId();
   const { message } = useAntd();
   const [createStore, { loading }] = useCreateStoreMutation({
@@ -50,7 +53,7 @@ const CreateStoreForm = ({ setCurrent }: CreateStoreFormProps) => {
   ];
   const onSubmit = async ({ website_url, name }: CreateStoreValues) => {
     try {
-      await createStore({
+      const { data } = await createStore({
         variables: {
           object: {
             name,
@@ -61,6 +64,7 @@ const CreateStoreForm = ({ setCurrent }: CreateStoreFormProps) => {
       });
       message.success('Store created successfully.');
       form.reset();
+      setStore({ id: data?.insertStore?.id, website: website_url, name });
       setCurrent((prevState) => prevState + 1);
     } catch (e) {
       console.error(e);

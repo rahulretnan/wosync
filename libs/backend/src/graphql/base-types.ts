@@ -100,6 +100,8 @@ export type Activity_Logs = {
   event: Scalars['String']['output'];
   id: Scalars['uuid']['output'];
   metadata: Scalars['jsonb']['output'];
+  /** An object relationship */
+  store?: Maybe<Stores>;
   store_id?: Maybe<Scalars['uuid']['output']>;
   /** An object relationship */
   user: Users;
@@ -171,6 +173,7 @@ export type Activity_Logs_Bool_Exp = {
   event?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   metadata?: InputMaybe<Jsonb_Comparison_Exp>;
+  store?: InputMaybe<Stores_Bool_Exp>;
   store_id?: InputMaybe<Uuid_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
 };
@@ -203,6 +206,7 @@ export type Activity_Logs_Insert_Input = {
   event?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   metadata?: InputMaybe<Scalars['jsonb']['input']>;
+  store?: InputMaybe<Stores_Obj_Rel_Insert_Input>;
   store_id?: InputMaybe<Scalars['uuid']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
 };
@@ -268,6 +272,7 @@ export type Activity_Logs_Order_By = {
   event?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   metadata?: InputMaybe<Order_By>;
+  store?: InputMaybe<Stores_Order_By>;
   store_id?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
 };
@@ -3011,6 +3016,289 @@ export type Files_Variance_Order_By = {
   size?: InputMaybe<Order_By>;
 };
 
+/** Store integration list */
+export type Integrations = {
+  __typename?: 'integrations';
+  api_key?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['uuid']['output'];
+  integration_type: Scalars['String']['output'];
+  metadata: Scalars['jsonb']['output'];
+  /** An object relationship */
+  store: Stores;
+  store_id: Scalars['uuid']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** Store integration list */
+export type IntegrationsMetadataArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "integrations" */
+export type Integrations_Aggregate = {
+  __typename?: 'integrations_aggregate';
+  aggregate?: Maybe<Integrations_Aggregate_Fields>;
+  nodes: Array<Integrations>;
+};
+
+export type Integrations_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Integrations_Aggregate_Bool_Exp_Count>;
+};
+
+export type Integrations_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Integrations_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Integrations_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "integrations" */
+export type Integrations_Aggregate_Fields = {
+  __typename?: 'integrations_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Integrations_Max_Fields>;
+  min?: Maybe<Integrations_Min_Fields>;
+};
+
+/** aggregate fields of "integrations" */
+export type Integrations_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Integrations_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "integrations" */
+export type Integrations_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Integrations_Max_Order_By>;
+  min?: InputMaybe<Integrations_Min_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Integrations_Append_Input = {
+  metadata?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** input type for inserting array relation for remote table "integrations" */
+export type Integrations_Arr_Rel_Insert_Input = {
+  data: Array<Integrations_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Integrations_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "integrations". All fields are combined with a logical 'AND'. */
+export type Integrations_Bool_Exp = {
+  _and?: InputMaybe<Array<Integrations_Bool_Exp>>;
+  _not?: InputMaybe<Integrations_Bool_Exp>;
+  _or?: InputMaybe<Array<Integrations_Bool_Exp>>;
+  api_key?: InputMaybe<String_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  integration_type?: InputMaybe<String_Comparison_Exp>;
+  metadata?: InputMaybe<Jsonb_Comparison_Exp>;
+  store?: InputMaybe<Stores_Bool_Exp>;
+  store_id?: InputMaybe<Uuid_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "integrations" */
+export enum Integrations_Constraint {
+  /** unique or primary key constraint on columns "store_id", "integration_type" */
+  IntergrationsIntegrationTypeStoreIdKey = 'intergrations_integration_type_store_id_key',
+  /** unique or primary key constraint on columns "id" */
+  IntergrationsPkey = 'intergrations_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Integrations_Delete_At_Path_Input = {
+  metadata?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Integrations_Delete_Elem_Input = {
+  metadata?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Integrations_Delete_Key_Input = {
+  metadata?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for inserting data into table "integrations" */
+export type Integrations_Insert_Input = {
+  api_key?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  integration_type?: InputMaybe<Scalars['String']['input']>;
+  metadata?: InputMaybe<Scalars['jsonb']['input']>;
+  store?: InputMaybe<Stores_Obj_Rel_Insert_Input>;
+  store_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type Integrations_Max_Fields = {
+  __typename?: 'integrations_max_fields';
+  api_key?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  integration_type?: Maybe<Scalars['String']['output']>;
+  store_id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by max() on columns of table "integrations" */
+export type Integrations_Max_Order_By = {
+  api_key?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  integration_type?: InputMaybe<Order_By>;
+  store_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Integrations_Min_Fields = {
+  __typename?: 'integrations_min_fields';
+  api_key?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  integration_type?: Maybe<Scalars['String']['output']>;
+  store_id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by min() on columns of table "integrations" */
+export type Integrations_Min_Order_By = {
+  api_key?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  integration_type?: InputMaybe<Order_By>;
+  store_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "integrations" */
+export type Integrations_Mutation_Response = {
+  __typename?: 'integrations_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Integrations>;
+};
+
+/** on_conflict condition type for table "integrations" */
+export type Integrations_On_Conflict = {
+  constraint: Integrations_Constraint;
+  update_columns?: Array<Integrations_Update_Column>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "integrations". */
+export type Integrations_Order_By = {
+  api_key?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  integration_type?: InputMaybe<Order_By>;
+  metadata?: InputMaybe<Order_By>;
+  store?: InputMaybe<Stores_Order_By>;
+  store_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: integrations */
+export type Integrations_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Integrations_Prepend_Input = {
+  metadata?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "integrations" */
+export enum Integrations_Select_Column {
+  /** column name */
+  ApiKey = 'api_key',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IntegrationType = 'integration_type',
+  /** column name */
+  Metadata = 'metadata',
+  /** column name */
+  StoreId = 'store_id',
+  /** column name */
+  UpdatedAt = 'updated_at',
+}
+
+/** input type for updating data in table "integrations" */
+export type Integrations_Set_Input = {
+  api_key?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  integration_type?: InputMaybe<Scalars['String']['input']>;
+  metadata?: InputMaybe<Scalars['jsonb']['input']>;
+  store_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** Streaming cursor of the table "integrations" */
+export type Integrations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Integrations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Integrations_Stream_Cursor_Value_Input = {
+  api_key?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  integration_type?: InputMaybe<Scalars['String']['input']>;
+  metadata?: InputMaybe<Scalars['jsonb']['input']>;
+  store_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** update columns of table "integrations" */
+export enum Integrations_Update_Column {
+  /** column name */
+  ApiKey = 'api_key',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IntegrationType = 'integration_type',
+  /** column name */
+  Metadata = 'metadata',
+  /** column name */
+  StoreId = 'store_id',
+  /** column name */
+  UpdatedAt = 'updated_at',
+}
+
+export type Integrations_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Integrations_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Integrations_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Integrations_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Integrations_Delete_Key_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Integrations_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Integrations_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Integrations_Bool_Exp;
+};
+
 export type Jsonb_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
 };
@@ -3082,6 +3370,10 @@ export type Mutation_Root = {
   deleteFile?: Maybe<Files>;
   /** delete data from the table: "storage.files" */
   deleteFiles?: Maybe<Files_Mutation_Response>;
+  /** delete single row from the table: "integrations" */
+  deleteIntegration?: Maybe<Integrations>;
+  /** delete data from the table: "integrations" */
+  deleteIntegrations?: Maybe<Integrations_Mutation_Response>;
   /** delete single row from the table: "stores" */
   deleteStore?: Maybe<Stores>;
   /** delete data from the table: "stores" */
@@ -3142,6 +3434,10 @@ export type Mutation_Root = {
   insertFile?: Maybe<Files>;
   /** insert data into the table: "storage.files" */
   insertFiles?: Maybe<Files_Mutation_Response>;
+  /** insert a single row into the table: "integrations" */
+  insertIntegration?: Maybe<Integrations>;
+  /** insert data into the table: "integrations" */
+  insertIntegrations?: Maybe<Integrations_Mutation_Response>;
   /** insert a single row into the table: "stores" */
   insertStore?: Maybe<Stores>;
   /** insert data into the table: "stores" */
@@ -3194,6 +3490,10 @@ export type Mutation_Root = {
   updateFile?: Maybe<Files>;
   /** update data of the table: "storage.files" */
   updateFiles?: Maybe<Files_Mutation_Response>;
+  /** update single row of the table: "integrations" */
+  updateIntegration?: Maybe<Integrations>;
+  /** update data of the table: "integrations" */
+  updateIntegrations?: Maybe<Integrations_Mutation_Response>;
   /** update single row of the table: "stores" */
   updateStore?: Maybe<Stores>;
   /** update data of the table: "stores" */
@@ -3248,6 +3548,10 @@ export type Mutation_Root = {
   update_buckets_many?: Maybe<Array<Maybe<Buckets_Mutation_Response>>>;
   /** update multiples rows of table: "storage.files" */
   update_files_many?: Maybe<Array<Maybe<Files_Mutation_Response>>>;
+  /** update multiples rows of table: "integrations" */
+  update_integrations_many?: Maybe<
+    Array<Maybe<Integrations_Mutation_Response>>
+  >;
   /** update multiples rows of table: "stores" */
   update_stores_many?: Maybe<Array<Maybe<Stores_Mutation_Response>>>;
   /** update multiples rows of table: "auth.users" */
@@ -3354,6 +3658,16 @@ export type Mutation_RootDeleteFileArgs = {
 /** mutation root */
 export type Mutation_RootDeleteFilesArgs = {
   where: Files_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDeleteIntegrationArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDeleteIntegrationsArgs = {
+  where: Integrations_Bool_Exp;
 };
 
 /** mutation root */
@@ -3526,6 +3840,18 @@ export type Mutation_RootInsertFileArgs = {
 export type Mutation_RootInsertFilesArgs = {
   objects: Array<Files_Insert_Input>;
   on_conflict?: InputMaybe<Files_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsertIntegrationArgs = {
+  object: Integrations_Insert_Input;
+  on_conflict?: InputMaybe<Integrations_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsertIntegrationsArgs = {
+  objects: Array<Integrations_Insert_Input>;
+  on_conflict?: InputMaybe<Integrations_On_Conflict>;
 };
 
 /** mutation root */
@@ -3721,6 +4047,28 @@ export type Mutation_RootUpdateFilesArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdateIntegrationArgs = {
+  _append?: InputMaybe<Integrations_Append_Input>;
+  _delete_at_path?: InputMaybe<Integrations_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Integrations_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Integrations_Delete_Key_Input>;
+  _prepend?: InputMaybe<Integrations_Prepend_Input>;
+  _set?: InputMaybe<Integrations_Set_Input>;
+  pk_columns: Integrations_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdateIntegrationsArgs = {
+  _append?: InputMaybe<Integrations_Append_Input>;
+  _delete_at_path?: InputMaybe<Integrations_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Integrations_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Integrations_Delete_Key_Input>;
+  _prepend?: InputMaybe<Integrations_Prepend_Input>;
+  _set?: InputMaybe<Integrations_Set_Input>;
+  where: Integrations_Bool_Exp;
+};
+
+/** mutation root */
 export type Mutation_RootUpdateStoreArgs = {
   _set?: InputMaybe<Stores_Set_Input>;
   pk_columns: Stores_Pk_Columns_Input;
@@ -3854,6 +4202,11 @@ export type Mutation_RootUpdate_Files_ManyArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Integrations_ManyArgs = {
+  updates: Array<Integrations_Updates>;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_Stores_ManyArgs = {
   updates: Array<Stores_Updates>;
 };
@@ -3952,6 +4305,12 @@ export type Query_Root = {
   files: Array<Files>;
   /** fetch aggregated fields from the table: "storage.files" */
   filesAggregate: Files_Aggregate;
+  /** fetch data from the table: "integrations" using primary key columns */
+  integration?: Maybe<Integrations>;
+  /** fetch aggregated fields from the table: "integrations" */
+  integrationAggregate: Integrations_Aggregate;
+  /** fetch data from the table: "integrations" */
+  integrations: Array<Integrations>;
   /** fetch data from the table: "stores" using primary key columns */
   store?: Maybe<Stores>;
   /** fetch aggregated fields from the table: "stores" */
@@ -4192,6 +4551,26 @@ export type Query_RootFilesAggregateArgs = {
   where?: InputMaybe<Files_Bool_Exp>;
 };
 
+export type Query_RootIntegrationArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Query_RootIntegrationAggregateArgs = {
+  distinct_on?: InputMaybe<Array<Integrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Integrations_Order_By>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
+export type Query_RootIntegrationsArgs = {
+  distinct_on?: InputMaybe<Array<Integrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Integrations_Order_By>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
 export type Query_RootStoreArgs = {
   id: Scalars['uuid']['input'];
 };
@@ -4257,12 +4636,56 @@ export type Stores = {
   __typename?: 'stores';
   created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
+  /** An array relationship */
+  intergrations: Array<Integrations>;
+  /** An aggregate relationship */
+  intergrations_aggregate: Integrations_Aggregate;
+  /** An array relationship */
+  logs: Array<Activity_Logs>;
+  /** An aggregate relationship */
+  logs_aggregate: Activity_Logs_Aggregate;
   name: Scalars['String']['output'];
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: Users;
   user_id: Scalars['uuid']['output'];
   website_url: Scalars['String']['output'];
+};
+
+/** List of stores */
+export type StoresIntergrationsArgs = {
+  distinct_on?: InputMaybe<Array<Integrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Integrations_Order_By>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
+/** List of stores */
+export type StoresIntergrations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Integrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Integrations_Order_By>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
+/** List of stores */
+export type StoresLogsArgs = {
+  distinct_on?: InputMaybe<Array<Activity_Logs_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Activity_Logs_Order_By>>;
+  where?: InputMaybe<Activity_Logs_Bool_Exp>;
+};
+
+/** List of stores */
+export type StoresLogs_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Activity_Logs_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Activity_Logs_Order_By>>;
+  where?: InputMaybe<Activity_Logs_Bool_Exp>;
 };
 
 /** aggregated selection of "stores" */
@@ -4318,6 +4741,10 @@ export type Stores_Bool_Exp = {
   _or?: InputMaybe<Array<Stores_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  intergrations?: InputMaybe<Integrations_Bool_Exp>;
+  intergrations_aggregate?: InputMaybe<Integrations_Aggregate_Bool_Exp>;
+  logs?: InputMaybe<Activity_Logs_Bool_Exp>;
+  logs_aggregate?: InputMaybe<Activity_Logs_Aggregate_Bool_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
@@ -4337,6 +4764,8 @@ export enum Stores_Constraint {
 export type Stores_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  intergrations?: InputMaybe<Integrations_Arr_Rel_Insert_Input>;
+  logs?: InputMaybe<Activity_Logs_Arr_Rel_Insert_Input>;
   name?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -4395,6 +4824,13 @@ export type Stores_Mutation_Response = {
   returning: Array<Stores>;
 };
 
+/** input type for inserting object relation for remote table "stores" */
+export type Stores_Obj_Rel_Insert_Input = {
+  data: Stores_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Stores_On_Conflict>;
+};
+
 /** on_conflict condition type for table "stores" */
 export type Stores_On_Conflict = {
   constraint: Stores_Constraint;
@@ -4406,6 +4842,8 @@ export type Stores_On_Conflict = {
 export type Stores_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  intergrations_aggregate?: InputMaybe<Integrations_Aggregate_Order_By>;
+  logs_aggregate?: InputMaybe<Activity_Logs_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -4575,6 +5013,14 @@ export type Subscription_Root = {
   filesAggregate: Files_Aggregate;
   /** fetch data from the table in a streaming manner: "storage.files" */
   files_stream: Array<Files>;
+  /** fetch data from the table: "integrations" using primary key columns */
+  integration?: Maybe<Integrations>;
+  /** fetch aggregated fields from the table: "integrations" */
+  integrationAggregate: Integrations_Aggregate;
+  /** fetch data from the table: "integrations" */
+  integrations: Array<Integrations>;
+  /** fetch data from the table in a streaming manner: "integrations" */
+  integrations_stream: Array<Integrations>;
   /** fetch data from the table: "stores" using primary key columns */
   store?: Maybe<Stores>;
   /** fetch aggregated fields from the table: "stores" */
@@ -4885,6 +5331,32 @@ export type Subscription_RootFiles_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Files_Stream_Cursor_Input>>;
   where?: InputMaybe<Files_Bool_Exp>;
+};
+
+export type Subscription_RootIntegrationArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootIntegrationAggregateArgs = {
+  distinct_on?: InputMaybe<Array<Integrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Integrations_Order_By>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
+export type Subscription_RootIntegrationsArgs = {
+  distinct_on?: InputMaybe<Array<Integrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Integrations_Order_By>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
+};
+
+export type Subscription_RootIntegrations_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Integrations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Integrations_Bool_Exp>;
 };
 
 export type Subscription_RootStoreArgs = {

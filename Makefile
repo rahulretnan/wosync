@@ -76,8 +76,6 @@ endif
 
 update-wordpress:
 	@npm i
-	@$(MAKE) --no-print-directory decrypt-envs-stage
-	@$(MAKE) --no-print-directory create-env-stage
 ifneq ($(OS), darwin)
 	@echo $(OS)
 	@echo "🚀Recreating $(stage) services"

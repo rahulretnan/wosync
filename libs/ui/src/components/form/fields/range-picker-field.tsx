@@ -1,12 +1,12 @@
 import { DatePicker, Form, FormItemProps } from 'antd';
-import {
-  PickerProps,
-  RangePickerProps,
-} from 'antd/lib/date-picker/generatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { ReactNode } from 'react';
 import { Controller, Path, PathValue, useFormContext } from 'react-hook-form';
+import {
+  PickerProps,
+  RangePickerProps,
+} from 'antd/lib/date-picker/generatePicker/interface';
 
 dayjs.extend(utc);
 
