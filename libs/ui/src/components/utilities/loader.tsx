@@ -16,7 +16,7 @@ const Loader: FC<LoaderProps> = ({ loading, children }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 1 }}
         transition={{ duration: 2 }}
-        className="w-full h-full"
+        className="w-screen h-screen"
       >
         <div className="flex h-full w-full items-center justify-center">
           <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />

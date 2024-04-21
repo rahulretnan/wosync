@@ -22,7 +22,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-router": "^1.16.5",
     "@tanstack/router-devtools": "^1.16.5",
-    "@wosync/woocommerce": "^0.0.1",
+    "@wosync/woocommerce": "^0.0.4",
     "antd": "^5.16.1",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",

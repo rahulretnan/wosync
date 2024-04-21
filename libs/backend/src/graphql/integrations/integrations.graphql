@@ -3,3 +3,17 @@ mutation addIntegration($object: integrations_insert_input!) {
     id
   }
 }
+
+query getIntegrationByStoreId($store_id: uuid!) {
+  integrations(where: {store_id: {_eq: $store_id}, integration_type: {_eq: "WOOCOMMERCE"}}) {
+    id
+    integration_type
+    metadata
+    store {
+      name
+      user_id
+      website_url
+      id
+    }
+  }
+}

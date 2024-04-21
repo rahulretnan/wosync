@@ -1,6 +1,8 @@
 import { createRoute } from '@tanstack/react-router';
 import { authRoute } from './_authenticated';
-import { Card } from 'antd';
+import AllStoresDashboard from '@ui/components/dashboards/all-stores-dashboard';
+import { useCurrentStore } from '@ui/hooks/useCurrentStore';
+import StoreDashboard from '@ui/components/dashboards/store-dashboard';
 
 export const indexRoute = createRoute({
   path: '/',
@@ -9,10 +11,10 @@ export const indexRoute = createRoute({
 });
 
 function Dashboard() {
-  console.log('Dashboard');
+  const { currentView } = useCurrentStore();
   return (
-    <Card className="p-2">
-      <h3>Welcome Home!</h3>
-    </Card>
+    <div className="p-2">
+      {currentView === 'ALL' ? <AllStoresDashboard /> : <StoreDashboard />}
+    </div>
   );
 }
