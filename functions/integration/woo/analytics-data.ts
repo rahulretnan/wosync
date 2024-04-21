@@ -13,8 +13,9 @@ const analyticsData = async (req: Request, res: Response) => {
     consumerKey: integration.metadata.consumer_key,
     consumerSecret: integration.metadata.consumer_secret,
   });
-  const { data, count, totalPages } = await woo.orders.list();
-  res.status(200).json({ data, count, totalPages });
+  const { count: orderCount } = await woo.orders.list();
+  const { count: productCount } = await woo.products.list();
+  res.status(200).json({ orderCount, productCount });
 };
 
 export default analyticsData;
