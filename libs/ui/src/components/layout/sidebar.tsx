@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Button, Flex, Layout, Menu, Select, theme } from 'antd';
 import type { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
 import { useStoresQuery } from '../../graphql/stores/stores.generated';
@@ -8,6 +8,7 @@ import ComponentLoader from '../utilities/component-loader';
 import { useCurrentStore } from '../../hooks/useCurrentStore';
 import { useUserDefaultRole } from '@nhost/react';
 import { concat } from 'lodash';
+import validator from 'validator';
 
 const { Sider } = Layout;
 
@@ -40,6 +41,14 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
   const {
     location: { pathname },
   } = useRouterState();
+  const parsedPathname = useMemo(
+    () =>
+      pathname
+        .split('/')
+        .map((path) => (validator.isBase64(path) ? atob(path) : path))
+        .join('/'),
+    [pathname],
+  );
   const { data, loading } = useStoresQuery({
     fetchPolicy: 'network-only',
   });
@@ -119,8 +128,8 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
       <Menu
         mode="inline"
         style={{ background: colorBgContainer }}
-        defaultSelectedKeys={[pathname]}
-        selectedKeys={[pathname]}
+        defaultSelectedKeys={[parsedPathname]}
+        selectedKeys={[parsedPathname]}
         items={menu}
       />
     </Sider>

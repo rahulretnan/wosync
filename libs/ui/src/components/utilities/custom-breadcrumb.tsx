@@ -45,7 +45,10 @@ function CustomBreadcrumb() {
         ? []
         : pathname
             .split('/')
-            .filter((path) => !validator.isUUID(path))
+            .filter(
+              (path) =>
+                !validator.isUUID(validator.isBase64(path) ? atob(path) : path),
+            )
             .map((path, index, array) => {
               return {
                 title: getBreadcrumbTitle(path, index, array),

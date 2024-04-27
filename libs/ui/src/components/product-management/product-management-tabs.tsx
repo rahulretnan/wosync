@@ -15,7 +15,7 @@ const ProductManagementTabs = ({
   const navigate = useNavigate();
   const items: TabsProps['items'] = [
     {
-      key: 'product-management',
+      key: 'products',
       label: 'Products',
       children: <ProductTable storeId={storeId as string} />,
     },
@@ -48,8 +48,8 @@ const ProductManagementTabs = ({
   return (
     <Card>
       <Tabs
-        activeKey={searchParams?.activeTab || 'product-management'}
-        defaultActiveKey={'product-management'}
+        activeKey={searchParams?.activeTab || 'products'}
+        defaultActiveKey={'products'}
         items={items}
         onChange={async (key) =>
           await navigate({

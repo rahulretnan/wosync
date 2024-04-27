@@ -4,6 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 import { authRoute } from '../../../_authenticated';
 import ProductManagementTabs from '@ui/components/product-management/product-management-tabs';
+import { decryptParam, encryptParam } from '@ui/utils/path';
 
 dayjs.extend(relativeTime);
 
@@ -11,6 +12,12 @@ export const storesProductManagementRoute = createRoute({
   path: '/stores/$storeId/product-management',
   component: ProductManagementPage,
   getParentRoute: () => authRoute,
+  stringifyParams: (params) => ({
+    storeId: encryptParam(params.storeId),
+  }),
+  parseParams: (rawParams) => ({
+    storeId: decryptParam(rawParams.storeId),
+  }),
 });
 
 function ProductManagementPage() {

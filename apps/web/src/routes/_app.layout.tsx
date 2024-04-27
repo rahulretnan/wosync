@@ -66,6 +66,9 @@ export function AppLayout() {
                   params: {
                     storeId: storeId as string,
                   },
+                  search: {
+                    activeTab: 'products',
+                  },
                 }),
             },
             {
