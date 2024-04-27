@@ -19,6 +19,7 @@ type CustomTableProps<RecordType> = Omit<TableProps<RecordType>, 'title'> & {
   setSort?: Dispatch<SetStateAction<Sorter>>;
   listRenderItem?: ListProps<RecordType>['renderItem'];
   tableHeaderProps?: TableHeaderProps;
+  customHeight?: string;
 };
 
 export type Sorter = {
@@ -35,6 +36,7 @@ function Table<RecordType extends object>({
   setSort,
   columns,
   tableHeaderProps,
+  customHeight,
   ...props
 }: CustomTableProps<RecordType>) {
   return (
@@ -72,7 +74,11 @@ function Table<RecordType extends object>({
         emptyText: customEmpty || (
           <div
             className={`${
-              showNormalHeight ? 'h-96' : 'h-[calc(100vh-340px)]'
+              showNormalHeight
+                ? 'h-96'
+                : customHeight
+                  ? customHeight
+                  : 'h-[calc(100vh-340px)]'
             } grid place-content-center ${
               loading ? 'opacity-0' : 'opacity-100'
             }`}

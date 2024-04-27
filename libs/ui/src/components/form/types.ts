@@ -52,6 +52,10 @@ import {
 } from './fields/time-picker-field';
 import { TimezonePicker, TimezonePickerProps } from './fields/timezone-picker';
 import { ButtonProps } from 'antd';
+import {
+  RichTextEditorField,
+  RichTextEditorFieldProps,
+} from './fields/rich-text-editor-field';
 
 export type FieldMapping<RecordType extends object> = {
   autoComplete: AutoCompleteFieldProps<RecordType>;
@@ -68,6 +72,7 @@ export type FieldMapping<RecordType extends object> = {
   radio: RadioGroupFieldProps<RecordType>;
   radioGroup: RadioGroupFieldProps<RecordType>;
   rangePicker: RangePickerFieldProps<RecordType>;
+  richTextEditor: RichTextEditorFieldProps<RecordType>;
   select: SelectFieldProps<RecordType>;
   switch: SwitchFieldProps<RecordType>;
   tagInput: TagFieldProps<RecordType>;
@@ -113,6 +118,7 @@ export type FieldComponentMapping = {
   radio: typeof RadioGroupField;
   radioGroup: typeof RadioGroupField;
   rangePicker: typeof RangePickerField;
+  richTextEditor: typeof RichTextEditorField;
   select: typeof SelectField;
   switch: typeof SwitchField;
   tagInput: typeof TagField;

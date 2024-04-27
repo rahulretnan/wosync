@@ -13,7 +13,7 @@ export const indexRoute = createRoute({
 function Dashboard() {
   const { currentView } = useCurrentStore();
   return (
-    <div className="p-2">
+    <div className="p-1">
       {currentView === 'ALL' ? <AllStoresDashboard /> : <StoreDashboard />}
     </div>
   );

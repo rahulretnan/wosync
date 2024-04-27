@@ -10,7 +10,7 @@ export const storesRoute = createRoute({
 
 function StoresList() {
   return (
-    <div className="h-full w-full p-5">
+    <div className="h-full w-full p-1">
       <StoreTable />
     </div>
   );
