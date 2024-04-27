@@ -4,13 +4,13 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ThemeProvider from '@ui/components/theme-provider';
 import React from 'react';
-import { authRoute } from '../../../_authenticated';
+import { authRoute } from '../../../../_authenticated';
 import { useCurrentStore } from '@ui/hooks/useCurrentStore';
 
 dayjs.extend(relativeTime);
 
 export const storesIntegrationSuccessRoute = createRoute({
-  path: '/stores/integration/success',
+  path: '/stores/$storeId/integration/success',
   component: IntegrationSuccessPage,
   getParentRoute: () => authRoute,
 });

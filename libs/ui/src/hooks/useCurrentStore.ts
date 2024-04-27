@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type CurrentStore = {
   storeId?: string;
@@ -7,10 +8,17 @@ type CurrentStore = {
   setCurrentView: (currentView: 'ALL' | 'STORE') => void;
 };
 
-export const useCurrentStore = create<CurrentStore>((set, get) => ({
-  storeId: undefined,
-  setStoreId: (id?: string) => set({ storeId: id }),
-  currentView: 'ALL',
-  setCurrentView: (currentView: 'ALL' | 'STORE') =>
-    set({ currentView: currentView }),
-}));
+export const useCurrentStore = create(
+  persist<CurrentStore>(
+    (set, get) => ({
+      storeId: undefined,
+      setStoreId: (id?: string) => set({ storeId: id }),
+      currentView: 'ALL',
+      setCurrentView: (currentView: 'ALL' | 'STORE') =>
+        set({ currentView: currentView }),
+    }),
+    {
+      name: 'current-store',
+    },
+  ),
+);

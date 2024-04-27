@@ -26,7 +26,7 @@ const ProfileMenu = () => {
       key: 'theme',
       label: theme === 'light' ? 'Dark Mode' : 'Light Mode',
       icon:
-        theme === 'light' ? (
+        theme === 'dark' ? (
           <SunIcon className="w-4 h-4" />
         ) : (
           <MoonIcon className="w-4 h-4" />

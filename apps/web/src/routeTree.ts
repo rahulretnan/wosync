@@ -6,7 +6,12 @@ import { signinRoute } from './routes/signin';
 import { indexRoute } from './routes/dashboard';
 import { storesRoute } from './routes/stores';
 import { createStoreRoute } from './routes/stores/store.create';
-import { storesIntegrationSuccessRoute } from './routes/stores/integration/success';
+import { storesIntegrationSuccessRoute } from './routes/stores/$storeId/integration/success';
+import { storesInventoryManagementRoute } from './routes/stores/$storeId/inventory-management';
+import { storesProductManagementRoute } from './routes/stores/$storeId/product-management';
+import { storesOrderManagementRoute } from './routes/stores/$storeId/order-management';
+import { storesCustomerManagementRoute } from './routes/stores/$storeId/customer-management';
+import { storesSupplierManagementRoute } from './routes/stores/$storeId/supplier-management';
 
 export const routeTree = rootRoute.addChildren([
   authLayoutRoute.addChildren([signinRoute]),
@@ -16,6 +21,11 @@ export const routeTree = rootRoute.addChildren([
       storesRoute.addChildren([
         createStoreRoute,
         storesIntegrationSuccessRoute,
+        storesInventoryManagementRoute,
+        storesProductManagementRoute,
+        storesOrderManagementRoute,
+        storesCustomerManagementRoute,
+        storesSupplierManagementRoute,
       ]),
     ]),
   ]),

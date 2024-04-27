@@ -13,6 +13,8 @@ function ThemeProvider({ children }: ThemeProviderProps) {
       theme={{
         token: {
           colorPrimary: '#e50851',
+          colorPrimaryBg: systemTheme === 'light' ? '#fff' : undefined,
+          colorBgBase: systemTheme === 'light' ? '#fbfbfb' : undefined,
         },
         components: {
           Layout: {

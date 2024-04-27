@@ -70,7 +70,6 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
         storeSelectionOptions ?? [],
       )
     : storeSelectionOptions;
-  // console.log(storeId);
   return (
     <Sider reverseArrow style={{ background: colorBgContainer }} width={250}>
       <div className="h-16 flex justify-center items-center">
@@ -97,7 +96,7 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
                 </Flex>
               )}
               notFoundContent={null}
-              onSelect={(value) => {
+              onSelect={async (value) => {
                 if (value === 'ALL') {
                   setCurrentView('ALL');
                   setStoreId(undefined);
@@ -105,9 +104,8 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
                   setCurrentView('STORE');
                   setStoreId(value as string);
                 }
-                navigate({
+                await navigate({
                   to: '/',
-                  replace: true,
                 });
               }}
             />
@@ -122,6 +120,7 @@ const Sidebar: FC<SidebarProps> = ({ menu }) => {
         mode="inline"
         style={{ background: colorBgContainer }}
         defaultSelectedKeys={[pathname]}
+        selectedKeys={[pathname]}
         items={menu}
       />
     </Sider>

@@ -1,7 +1,8 @@
 import { Breadcrumb } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { Link, useRouterState } from '@tanstack/react-router';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
+import validator from 'validator';
 
 const HomeBreadCrumb = () => (
   <Link to="/">
@@ -10,7 +11,7 @@ const HomeBreadCrumb = () => (
 );
 
 const capitalizeFirstLetter = (str: string) =>
-  str.charAt(0).toUpperCase() + str.slice(1);
+  (str.charAt(0).toUpperCase() + str.slice(1)).replace('-', ' ');
 
 function getBreadcrumbTitle(
   path: string,
@@ -38,12 +39,20 @@ function CustomBreadcrumb() {
     location: { pathname },
   } = useRouterState();
 
-  const paths =
-    pathname === '/'
-      ? []
-      : pathname.split('/').map((path, index, array) => ({
-          title: getBreadcrumbTitle(path, index, array),
-        }));
+  const paths = useMemo(
+    () =>
+      pathname === '/'
+        ? []
+        : pathname
+            .split('/')
+            .filter((path) => !validator.isUUID(path))
+            .map((path, index, array) => {
+              return {
+                title: getBreadcrumbTitle(path, index, array),
+              };
+            }),
+    [pathname],
+  );
   return <Breadcrumb items={paths} />;
 }
 

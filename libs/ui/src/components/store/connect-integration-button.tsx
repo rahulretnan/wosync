@@ -16,7 +16,7 @@ const ConnectIntegrationButton = ({ store }: ConnectIntegrationFormProps) => {
       app_name: store?.name as string,
       scope: 'read_write',
       user_id: store?.id as string,
-      return_url: `${APP_URL}/stores/integration/success`,
+      return_url: `${APP_URL}/stores/${store?.id}/integration/success`,
       callback_url: FUNCTION_URL,
     };
     const url = new URL(baseLink);
